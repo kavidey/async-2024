@@ -1,0 +1,25 @@
+import "buffer.act";
+
+defproc test_src(chan!(int) X)
+{
+    chp {
+        X!5; X!10; X!3; X!15; X!17
+    }
+}
+
+defproc test_sink(chan?(int) X)
+{
+    int x;
+    chp {
+        *[X?x; log("I received: ", x)]
+    }
+}
+
+defproc test()
+{
+    buffer b;
+
+    test_src src(b.L);
+    test_sink snk;
+    snk.X = b.R;
+}

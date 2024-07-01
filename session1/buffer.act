@@ -1,0 +1,15 @@
+defproc buffer (chan?(int) L; chan!(int) R)
+{
+    /* Method 1: CHP */
+    int x; // local state
+
+    chp {
+        *[ L?x; R!(x+1) ]
+    }
+
+    /* Method 2: Dataflow */
+    // dataflow {
+    //     // expression -> output
+    //     L + 1 -> R
+    // }
+}

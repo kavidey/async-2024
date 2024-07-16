@@ -1,0 +1,15 @@
+import globals;
+
+defproc ff(bool? CLK, D; bool! Q)
+{
+   bool __clk;
+
+   prs {
+    /* hack for edge-triggered element */
+    [after=20] CLK -> __clk+
+    [after=20] ~CLK -> __clk-
+
+     Reset | (CLK & ~__clk & ~D) -> Q-
+     (CLK & ~__clk & D) -> Q+
+   }
+}

@@ -1,0 +1,38 @@
+bool Reset;
+
+defproc inv(bool? i; bool! o)
+{
+   prs {
+     i => o-
+   }
+}
+
+defproc invreset(bool? i; bool! o)
+{
+  prs {
+     Reset | i => o-
+  }
+}
+
+
+defproc test()
+{
+   bool a, b, c;
+
+   inv ia0, ib0;
+   invreset ia1, ib1;
+
+   ia0.i = c;
+   ib0.i = c;
+
+   ia0.o = ia1.i;
+   ib0.o = ib1.i;
+
+   ia1.o = a;
+   ib1.o = b;
+
+   prs {
+      a & b -> c-
+      ~a & ~b -> c+
+   }
+}

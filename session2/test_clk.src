@@ -1,0 +1,10 @@
+watch a b c
+vcd_start out.vcd
+set Reset 1
+cycle
+
+set Reset 0
+
+advance 1000 
+
+vcd_stop

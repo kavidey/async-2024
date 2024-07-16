@@ -1,0 +1,49 @@
+import globals;
+import std;
+open std::channel;
+
+import "ff.act";
+
+
+defproc pipe(bd?<2> di; bd!<2> do)
+{
+   bool sig;
+
+   prs {
+    [after=100] ~Reset & di.r & ~do.a -> sig+
+    [after=100] Reset | ~di.r & do.a -> sig-
+   }
+   sig = di.a;
+   sig = do.r;
+
+   ff f[2];
+   (i:2: f[i].CLK = sig;
+         f[i].D = di.d[i];
+         f[i].Q = do.d[i];)
+}
+
+
+defproc src(bd!<2> X)
+{
+  prs {
+    Reset | ~X.a => X.r+
+
+    Reset -> X.d[0]-
+    Reset -> X.d[1]+
+  }
+}
+
+defproc sink(bd?<2> X)
+{
+  prs {
+   ~Reset & X.r => X.a+
+  }
+}
+
+defproc test()
+{
+  pipe p;
+
+  src s0(p.di);
+  sink s1(p.do);
+}

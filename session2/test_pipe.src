@@ -1,0 +1,10 @@
+watch p.do.d[0]
+watch p.do.d[1]
+watch p.do.r
+watch p.do.a
+
+
+set Reset 1
+cycle
+set Reset 0
+step 20

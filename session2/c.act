@@ -1,0 +1,9 @@
+defproc test()
+{
+    bool a, b, c;
+    
+    prs {
+        a & b -> c-
+        ~a & ~b -> c+
+    }
+}
